@@ -1,0 +1,25 @@
+# for sockets
+
+version: '3'
+
+services:
+  server:
+    image: s02210582/extra_task_1:socket_server
+    ports:
+      - 8080:8080  # socket
+
+  client:
+    image: s02210582/extra_task_1:socket_client
+    ports:
+      - 5051:5051     # REST
+    depends_on:
+      - server
+    volumes:
+      - tasks:/app/data
+volumes:
+  tasks:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "/root/vol"
